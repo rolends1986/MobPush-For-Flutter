@@ -1,20 +1,15 @@
-package com.mob.mobpush;
-
-import android.content.Context;
+package com.mob.mobpush_plugin;
 
 import com.mob.MobSDK;
-import com.mob.mobpush.req.SimulateRequest;
+import com.mob.mobpush_plugin.req.SimulateRequest;
 import com.mob.pushsdk.MobPush;
 import com.mob.pushsdk.MobPushCallback;
-import com.mob.pushsdk.MobPushCustomMessage;
 import com.mob.pushsdk.MobPushLocalNotification;
-import com.mob.pushsdk.MobPushNotifyMessage;
-import com.mob.pushsdk.MobPushReceiver;
 import com.mob.tools.utils.Hashon;
 import com.mob.tools.utils.ResHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Map;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -32,7 +27,7 @@ public class MobpushPlugin implements MethodCallHandler {
      * Plugin registration.
      */
     public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "mob.com/mobpush");
+        final MethodChannel channel = new MethodChannel(registrar.messenger(), "mobpush_plugin");
         channel.setMethodCallHandler(new MobpushPlugin());
 
         MobpushReceiverPlugin.registerWith(registrar);
@@ -42,6 +37,8 @@ public class MobpushPlugin implements MethodCallHandler {
     public void onMethodCall(final MethodCall call, final Result result) {
         if (call.method.equals("getPlatformVersion")) {
             result.success("Android " + android.os.Build.VERSION.RELEASE);
+        } else if (call.method.equals("getSDKVersion")) {
+            result.success(MobPush.SDK_VERSION_NAME);
         } else if (call.method.equals("getRegistrationId")) {
             MobPush.getRegistrationId(new MobPushCallback<String>() {
                 @Override
@@ -107,7 +104,7 @@ public class MobpushPlugin implements MethodCallHandler {
             MobPush.setAppForegroundHiddenNotification(hidden);
         } else if (call.method.equals("setShowBadge")) {
             boolean show = call.argument("show");
-            System.out.println("setShowBadge:"+show); 
+            System.out.println("setShowBadge:" + show);
             MobPush.setShowBadge(show);
         } else if (call.method.equals("bindPhoneNum")) {
             String phoneNum = call.argument("phoneNum");

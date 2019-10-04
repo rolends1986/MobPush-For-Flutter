@@ -1,23 +1,16 @@
-package com.mob.mobpush;
+package com.mob.mobpush_plugin;
 
 import android.content.Context;
 
-import com.mob.mobpush.req.SimulateRequest;
 import com.mob.pushsdk.MobPush;
-import com.mob.pushsdk.MobPushCallback;
 import com.mob.pushsdk.MobPushCustomMessage;
 import com.mob.pushsdk.MobPushNotifyMessage;
 import com.mob.pushsdk.MobPushReceiver;
 import com.mob.tools.utils.Hashon;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import io.flutter.plugin.common.EventChannel;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
-import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**

@@ -52,9 +52,10 @@ class _MainAppState extends State<MainApp> {
   }
 
   void _onEvent(Object event) {
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>onEvent:' + event);
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>onEvent:' + json.encode(event));
     setState(() {
-      Map<String, dynamic> eventMap = json.decode(json.encode(event));
+      Map<String, dynamic> eventMap = json.decode(event);
       /*
        action: 0:自定义消息 1:APNs&本地通知消息 2:点击消息或其他消息
       */
@@ -202,10 +203,10 @@ class _MainAppState extends State<MainApp> {
       sdkVersion = 'Failed to get platform version.';
     }
     try {
-      MobpushPlugin.getRegistrationId().then((Map<String, dynamic> ridMap) {
-        print(ridMap);
+      MobpushPlugin.getRegistrationId().then((String registrationId) {
+        print(registrationId);
         setState(() {
-          _registrationId = ridMap['res'].toString();
+          _registrationId = registrationId;
           print('------>#### registrationId: ' + _registrationId);
         });
       });

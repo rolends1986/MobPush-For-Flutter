@@ -8,3 +8,11 @@
 build/
 DerivedData/
 index/
+.idea/
+mobpush/.idea/
+mobpush_plugin/.idea/
+mobpush/example/ios/Flutter/flutter_export_environment.sh
+mobpush_plugin/example/ios/Flutter/flutter_export_environment.sh
+mobpush_plugin/example/pubspec.lock
+mobpush_plugin/mobpush_plugin.iml
+mobpush_plugin/pubspec.lock
