@@ -17,6 +17,7 @@
 static NSString *const receiverStr = @"mobpush_receiver";
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
+    [self setupSdk];
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:@"mobpush_plugin" binaryMessenger:[registrar messenger]];
     MobpushPlugin* instance = [[MobpushPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];
@@ -25,6 +26,18 @@ static NSString *const receiverStr = @"mobpush_receiver";
     [e_channel setStreamHandler:instance];
     
     [instance addObserver];
+}
+
++ (void)setupSdk{
+    #ifdef DEBUG
+        [MobPush setAPNsForProduction:NO];
+    #else
+        [MobPush setAPNsForProduction:YES];
+    #endif
+    //MobPush推送设置（获得角标、声音、弹框提醒权限）
+    MPushNotificationConfiguration *configuration = [[MPushNotificationConfiguration alloc] init];
+    configuration.types = MPushAuthorizationOptionsBadge | MPushAuthorizationOptionsSound | MPushAuthorizationOptionsAlert;
+    [MobPush setupNotification:configuration];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
